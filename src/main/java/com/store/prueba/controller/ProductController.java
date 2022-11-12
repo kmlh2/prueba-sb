@@ -7,9 +7,7 @@ package com.store.prueba.controller;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
-//
-//import reactor.core.publisher.Flux;
-//import reactor.core.publisher.Mono;
+
 
 import com.store.prueba.entity.Product;
 import com.store.prueba.persistence.service.ProductService;
@@ -34,6 +32,11 @@ public class ProductController {
     @GetMapping
     private Flux<Product> getAllProducts() {
         return Flux.fromIterable(productService.findAll());
+    }
+
+    @PostMapping("/create")
+    private Mono<Product> updateEmployee(@RequestBody Product product) {
+        return Mono.just(productService.create(product));
     }
 
 //    @PostMapping("/update")

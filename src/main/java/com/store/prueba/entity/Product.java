@@ -1,11 +1,9 @@
 package com.store.prueba.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name="products")
@@ -34,8 +32,10 @@ public class Product {
     @Column(name="primary_image", nullable = false)
     private String primaryImage;
 
-    @Column(name="other_image")
-    private String[] otherImages;
+    @ElementCollection
+//    @CollectionTable(name ="tracks" , joinColumns=@JoinColumn(name="playlist_id"))
+    @Column(name="other_images")
+    private List<String> otherImages = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -93,11 +93,11 @@ public class Product {
         this.primaryImage = primaryImage;
     }
 
-    public String[] getOtherImages() {
+    public List<String> getOtherImages() {
         return otherImages;
     }
 
-    public void setOtherImages(String[] otherImages) {
+    public void setOtherImages(List<String> otherImages) {
         this.otherImages = otherImages;
     }
 }
