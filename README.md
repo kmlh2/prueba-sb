@@ -1,5 +1,6 @@
-# Spring boot - jpa - webflux
-Para correr localmente, se necesita la base de datos.
+# Evaluacion Falabella
+Para correr localmente, se necesita la base de datos. Por lo cual es necesario ejecutar el siguiente comando en la raiz del proyecto
+
 ```
 docker-compose up -d
 ```
@@ -8,23 +9,45 @@ docker-compose up -d
 
 ## Configurar la base de datos
 
-Acceder a url http://localhost:8081/ 
+Si es la primera vez que ejecuta, debe crear la base de datos con los siguientes pasos
+
+* Acceder a url http://localhost:8081/ 
 ```
 Usuario: root
 Clave: example
 ```
 
-* Si es la primera vez que ejecuta, debe crear la base de datos con el comando de creacion:
+* Ejecute comando de creacion base de datos:
 ```
 CREATE DATABASE store;
 ```
+![img_1.png](img/img_1.png)
 
+## Construir y ejecutar la aplicacion
 
-## Ejecutar la aplicacion
+* Para construir y ejecutar la applicacion es necesario ingresar a la carpeta del proyecto y ejecutar los siguientes comandos
 
-* Para ejecutar la applicacion e necesario ejecutar el siguiente comando
+Linux - OSX:
+
+* Construccion
 ```
-./gradlew bootRun
+./gradlew clean build
+```
+* Ejecucion
+```
+cd build/libs/
+java -jar prueba-0.0.1-SNAPSHOT.jar
+```
+
+Window:
+* Construccion
+```
+gradlew.bat clean build
+```
+* Ejecucion
+```
+cd build/libs/
+java -jar prueba-0.0.1-SNAPSHOT.jar
 ```
 
 

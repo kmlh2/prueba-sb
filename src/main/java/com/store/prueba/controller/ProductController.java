@@ -2,8 +2,12 @@ package com.store.prueba.controller;
 
 
 import com.store.prueba.entity.Product;
+import com.store.prueba.exception.ProductNotFoundException;
 import com.store.prueba.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,25 +22,29 @@ public class ProductController {
 
     @GetMapping("/{sku}")
     private Mono<Product> getBySku(@PathVariable String sku) {
-        return Mono.just(productService.findBySku(sku));
+        return productService.findBySku(sku);
     }
 
     @GetMapping
     private Flux<Product> getAll() {
-        return Flux.fromIterable(productService.findAll());
+        return productService.findAll();
     }
 
     @PostMapping("/create")
     private Mono<Product> create(@RequestBody Product product) {
-        return Mono.just(productService.create(product));
+        return productService.create(product);
     }
 
     @PutMapping("/update/{sku}")
     private Mono<Product> update(@PathVariable String sku, @RequestBody Product product) {
-        try {
-            return Mono.just(productService.update(sku, product));
-        } catch (Exception e) {
-            return Mono.error(new IllegalArgumentException(e.getMessage()));
-        }
+        return productService.update(sku, product);
+
+    }
+
+    @DeleteMapping("/delete/{sku}")
+    private Mono<Product> delete(@PathVariable String sku) {
+        return productService.delete(sku);
+//                .switchIfEmpty(Mono.error(new ProductNotFoundException(sku)));
+
     }
 }

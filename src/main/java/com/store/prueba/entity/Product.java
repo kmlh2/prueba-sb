@@ -14,10 +14,10 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
+    @Column(name="id", nullable = false, unique = true)
     private int id;
 
-    @Column(name="sku", nullable = false)
+    @Column(name="sku", nullable = false, unique = true)
     private String sku;
 
     @Column(name="name", nullable = false)

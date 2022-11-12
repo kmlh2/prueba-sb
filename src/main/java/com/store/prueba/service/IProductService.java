@@ -1,13 +1,16 @@
 package com.store.prueba.service;
 
 import com.store.prueba.entity.Product;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 public interface IProductService {
-    List<Product> findAll();
-    Product findBySku(String sku);
-    Product create(Product product);
+    Flux<Product> findAll();
+    Mono<Product> findBySku(String sku);
+    Mono<Product> create(Product product);
 
-    Product update(String sku, Product product) throws Exception;
+    Mono<Product> update(String sku, Product product);
+    Mono<Product> delete(String sku);
 }
