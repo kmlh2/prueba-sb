@@ -1,4 +1,4 @@
-package com.store.prueba.persistence.service;
+package com.store.prueba.service;
 
 import com.store.prueba.entity.Product;
 
@@ -8,4 +8,6 @@ public interface IProductService {
     List<Product> findAll();
     Product findBySku(String sku);
     Product create(Product product);
+
+    Product update(String sku, Product product) throws Exception;
 }

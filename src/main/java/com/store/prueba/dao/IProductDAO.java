@@ -1,4 +1,4 @@
-package com.store.prueba.persistence.dao;
+package com.store.prueba.dao;
 
 import com.store.prueba.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

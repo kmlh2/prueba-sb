@@ -1,5 +1,8 @@
 package com.store.prueba.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,8 @@ public class Product {
     private String primaryImage;
 
     @ElementCollection
-//    @CollectionTable(name ="tracks" , joinColumns=@JoinColumn(name="playlist_id"))
+    @CollectionTable(name ="other_images")
+    @Fetch(FetchMode.JOIN)
     @Column(name="other_images")
     private List<String> otherImages = new ArrayList<>();
 
