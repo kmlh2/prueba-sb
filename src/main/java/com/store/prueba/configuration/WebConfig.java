@@ -2,6 +2,7 @@ package com.store.prueba.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.store.prueba.dto.ResponseError;
 import com.store.prueba.exception.InternalServerException;
 import com.store.prueba.exception.ProductBadRequestException;
 import com.store.prueba.exception.ProductConflictException;
@@ -15,7 +16,6 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Flux;
 
-import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -63,28 +63,3 @@ public class WebConfig {
     }
 }
 
-class ResponseError implements Serializable {
-
-    private int code;
-    private String message;
-    ResponseError(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-}
