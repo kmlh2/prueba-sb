@@ -79,12 +79,12 @@ public class ProductService implements IProductService {
     public Mono<Product> delete(String sku)  {
 
         Product toDelete = dao.findBySku(sku);
-            if(toDelete == null){
-                Mono.error(new ProductNotFoundException(sku));
-            }
-            dao.delete(toDelete);
+        if(toDelete == null){
+            return Mono.error(new ProductNotFoundException(sku));
+        }
+        dao.delete(toDelete);
 
-            return Mono.just(toDelete);
+        return Mono.just(toDelete);
 
 
     }

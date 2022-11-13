@@ -44,7 +44,6 @@ public class ProductController {
     @DeleteMapping("/delete/{sku}")
     private Mono<Product> delete(@PathVariable String sku) {
         return productService.delete(sku);
-//                .switchIfEmpty(Mono.error(new ProductNotFoundException(sku)));
 
     }
 }
