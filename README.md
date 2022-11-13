@@ -51,9 +51,59 @@ java -jar prueba-0.0.1-SNAPSHOT.jar
 ```
 
 
-## Llenar la base de datos con información de pruebas
+## Probar CRUD de Productos
 
-Llamara:
+A continuacion se explicara como consumir los servicios de creacion, modificacion, busqueda y eliminacion de productos, a traves de CURL 
+
+* #### Crear un nuevo producto (sku: FAL-234567654)
 ```
-http://localhost:3000/api/seed
+curl --location --request POST 'http://localhost:8080/products/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "sku": "FAL-234567654",
+    "name": "Polera",
+    "brand": "Adidas",
+    "size": "XXL",
+    "primaryImage": "http://polera.png",
+    "otherImages": [
+        "http://img1.png",
+        "http://img2.png",
+        "http://img3.png",
+        "http://img4.png",
+        "http://img5.png"
+    ]
+}'
+```
+
+* #### Consultar todos los productos
+
+```
+curl --location --request GET 'http://localhost:8080/products'
+```
+
+* #### Consultar un producto por SKU FAL-234567654
+
+```
+curl --location --request GET 'http://localhost:8080/products/FAL-234567654'
+```
+
+* #### Actualizar un producto por SKU FAL-234567654
+
+```
+curl --location --request PUT 'http://localhost:8080/products/update/FAL-234567654' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "sku": "FAL-234567654",
+    "name": "Pantalon",
+    "brand": "Adidas",
+    "size": "XXL",
+    "price": 0,
+    "primaryImage": "http://polera.png"
+}'
+```
+
+* #### Eliminar un producto por SKU FAL-234567654
+
+```
+curl --location --request DELETE 'http://localhost:8080/products/delete/FAL-234567654'
 ```

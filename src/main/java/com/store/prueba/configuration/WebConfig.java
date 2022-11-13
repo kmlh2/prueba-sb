@@ -1,5 +1,7 @@
 package com.store.prueba.configuration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.store.prueba.exception.InternalServerException;
 import com.store.prueba.exception.ProductBadRequestException;
 import com.store.prueba.exception.ProductConflictException;
@@ -12,9 +14,10 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 @Configuration
 @EnableWebFlux
@@ -35,11 +38,53 @@ public class WebConfig {
                 exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
             }
 
+            exchange.getResponse().getHeaders().add("Content-Type", "application/json");
 
-            byte[] bytes = ex.getMessage().getBytes(StandardCharsets.UTF_8);
+            byte[] bytes = errorToBytes(exchange, ex);
+
             DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
 
             return exchange.getResponse().writeWith(Flux.just(buffer));
         };
+    }
+
+    private byte[] errorToBytes (ServerWebExchange exchange, Throwable ex){
+        ObjectMapper objectMapper = new ObjectMapper();
+        ResponseError errorsResponse = new ResponseError(
+                Objects.requireNonNull(exchange.getResponse().getStatusCode()).value(),
+                ex.getMessage()
+        );
+
+        try {
+            return objectMapper.writeValueAsBytes(errorsResponse);
+        } catch (JsonProcessingException e) {
+            return ex.getMessage().getBytes(StandardCharsets.UTF_8);
+        }
+    }
+}
+
+class ResponseError implements Serializable {
+
+    private int code;
+    private String message;
+    ResponseError(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
