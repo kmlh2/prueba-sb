@@ -18,9 +18,12 @@ Clave: example
 ```
 
 * Ejecute comando de creacion base de datos en la ventana de 'Comando SQL', tal como se muestra en la imagen a continuacion:
+
+Comando:
 ```
 CREATE DATABASE store;
 ```
+Imagen ejemplo:
 ![img_1.png](img/img_1.png)
 
 ## Construir y ejecutar la aplicacion
