@@ -119,7 +119,6 @@ curl --location --request PUT 'http://localhost:8080/products/update/FAL-2345676
     "brand": "Adidas",
     "price": 10000,
     "size": "XXL",
-    "price": 0,
     "primaryImage": "http://polera.png"
 }'
 ```
