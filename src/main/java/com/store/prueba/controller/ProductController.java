@@ -2,14 +2,11 @@ package com.store.prueba.controller;
 
 
 import com.store.prueba.entity.Product;
-import com.store.prueba.exception.ProductNotFoundException;
 import com.store.prueba.service.ProductService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 
 @RestController
 @RequestMapping("/products")

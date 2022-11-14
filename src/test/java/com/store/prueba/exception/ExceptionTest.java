@@ -15,7 +15,7 @@ class ExceptionTest {
     }
     @Test
     void productBadRequestException()  {
-        Mono<Object> strMono = Mono.error(new ProductBadRequestException()).log();
+        Mono<Object> strMono = Mono.error(new ProductBadRequestException("test")).log();
         StepVerifier.create(strMono)
                 .expectError(ProductBadRequestException.class)
                 .verify();

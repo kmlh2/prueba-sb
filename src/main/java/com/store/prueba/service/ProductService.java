@@ -6,19 +6,25 @@ import com.store.prueba.exception.InternalServerException;
 import com.store.prueba.exception.ProductBadRequestException;
 import com.store.prueba.exception.ProductConflictException;
 import com.store.prueba.exception.ProductNotFoundException;
+import com.store.prueba.validator.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @Service
 public class ProductService implements IProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductValidator productValidator;
 
-    public ProductService(ProductRepository productRepository){
+    public ProductService(ProductRepository productRepository, ProductValidator productValidator){
         this.productRepository = productRepository;
+        this.productValidator = productValidator;
     }
 
     @Override
@@ -40,6 +46,12 @@ public class ProductService implements IProductService {
 
     @Override
     public Mono<Product> create(Product product) {
+
+        Optional<String> validations = productValidator.validate(product);
+        if(validations.isPresent()){
+            return Mono.error(new ProductBadRequestException(validations.get()));
+        }
+
         Product newProduct = null;
         try {
             newProduct = productRepository.save(product);
@@ -50,7 +62,7 @@ public class ProductService implements IProductService {
                 return Mono.error(new ProductConflictException(product.getSku()));
             }
             if(e.getMessage().contains("not-null")){
-                return Mono.error(new ProductBadRequestException());
+                return Mono.error(new ProductBadRequestException("Product is not valid (needs non-null values)"));
             }
 
            return Mono.error(new InternalServerException(e.getMessage()));
@@ -62,6 +74,11 @@ public class ProductService implements IProductService {
 
     @Override
     public Mono<Product> update(String sku, Product product){
+
+        Optional<String> validations = productValidator.validate(product);
+        if(validations.isPresent()){
+            return Mono.error(new ProductBadRequestException(validations.get()));
+        }
 
         Product old = productRepository.findBySku(sku);
 
@@ -86,5 +103,7 @@ public class ProductService implements IProductService {
         return Mono.just(toDelete);
 
     }
+
+
 
 }

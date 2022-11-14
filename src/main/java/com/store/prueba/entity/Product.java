@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name="products")
@@ -17,21 +18,37 @@ public class Product {
     @Column(name="id", nullable = false, unique = true)
     private int id;
 
+    @NotNull(message = "SKU cannot be null")
     @Column(name="sku", nullable = false, unique = true)
     private String sku;
 
+
+    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name must not be empty")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     @Column(name="name", nullable = false)
     private String name;
 
+
+
+    @NotNull(message = "Brand cannot be null")
+    @NotBlank(message = "Brand must not be empty")
+    @Size(min = 3, max = 50, message = "Brand must be between 3 and 50 characters")
     @Column(name="brand", nullable = false)
     private String brand;
 
+    @NotBlank(message = "Size must not be empty")
     @Column(name="size")
     private String size;
 
+    @NotNull(message = "Price cannot be null")
+    @Min(value = 1, message = "Price should not be less than 1")
+    @Max(value = 99999999, message = "Price should not be greater than 99999999")
     @Column(name="price", nullable = false )
     private int price;
 
+    @NotNull(message = "Primary image cannot be null")
+    @NotBlank(message = "Primary image must not be empty")
     @Column(name="primary_image", nullable = false)
     private String primaryImage;
 

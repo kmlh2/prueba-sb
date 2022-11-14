@@ -68,7 +68,7 @@ gradlew.bat build jacocoTestReport
 
 Al finalzar la ejecucion el reporte de covertura queda almacenado en el directorio: ```/build/jacocoHtml/index.html```
 
-![img.png](img/img.png)
+![img.png](img/img_2.png)
 
 
 ## Probar CRUD de Productos
@@ -83,6 +83,7 @@ curl --location --request POST 'http://localhost:8080/products/create' \
     "sku": "FAL-234567654",
     "name": "Polera",
     "brand": "Adidas",
+    "price": 20000,
     "size": "XXL",
     "primaryImage": "http://polera.png",
     "otherImages": [
@@ -116,6 +117,7 @@ curl --location --request PUT 'http://localhost:8080/products/update/FAL-2345676
     "sku": "FAL-234567654",
     "name": "Pantalon",
     "brand": "Adidas",
+    "price": 10000,
     "size": "XXL",
     "price": 0,
     "primaryImage": "http://polera.png"

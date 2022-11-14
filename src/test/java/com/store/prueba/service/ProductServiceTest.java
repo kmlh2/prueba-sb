@@ -1,14 +1,14 @@
 package com.store.prueba.service;
 
 import com.store.prueba.entity.Product;
-import com.store.prueba.exception.InternalServerException;
+import com.store.prueba.exception.ProductBadRequestException;
 import com.store.prueba.exception.ProductNotFoundException;
 import com.store.prueba.repository.ProductRepository;
+import com.store.prueba.validator.ProductValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,9 +18,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import reactor.test.StepVerifier;
@@ -34,6 +34,8 @@ public class ProductServiceTest {
 
     @MockBean
     private ProductRepository productRepository;
+    @MockBean
+    private ProductValidator productValidator;
 
     Product sampleProduct;
     Exception exception;
@@ -90,7 +92,6 @@ public class ProductServiceTest {
                         throwable.getMessage().equals("Product SKU: FAL-234567654 is not found.")).verify();
   }
 
-
     @Test()
     void create() {
 
@@ -98,6 +99,15 @@ public class ProductServiceTest {
         assertEquals(productService.create(sampleProduct).block().getSize(), "XXL" );
     }
 
+    @Test
+    void createConstraintViolation() {
+        when(productValidator.validate(sampleProduct)).thenReturn(Optional.of("test"));
+
+        Mono<Product> productBadRequest = productService.create(sampleProduct);
+
+        StepVerifier.create(productBadRequest)
+                .expectErrorMatches(throwable -> throwable instanceof ProductBadRequestException ).verify();
+    }
 
 //    @Test
 //    void createWithProductConflictException()  {
@@ -127,6 +137,15 @@ public class ProductServiceTest {
         StepVerifier.create(productNotFound)
                     .expectErrorMatches(throwable -> throwable instanceof ProductNotFoundException &&
                         throwable.getMessage().equals("Product SKU: FAL-234567654 is not found.")).verify();
+    }
+    @Test
+    void updateConstraintViolation() {
+        when(productValidator.validate(sampleProduct)).thenReturn(Optional.of("test"));
+
+        Mono<Product> productBadRequest = productService.update("test", sampleProduct);
+
+        StepVerifier.create(productBadRequest)
+                .expectErrorMatches(throwable -> throwable instanceof ProductBadRequestException ).verify();
     }
 
     @Test
