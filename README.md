@@ -68,7 +68,7 @@ gradlew.bat build jacocoTestReport
 
 Al finalzar la ejecucion el reporte de covertura queda almacenado en el directorio: ```/build/jacocoHtml/index.html```
 
-![img.png](img.png)
+![img.png](img/img.png)
 
 
 ## Probar CRUD de Productos
