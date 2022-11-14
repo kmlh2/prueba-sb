@@ -24,6 +24,7 @@ Comando:
 CREATE DATABASE store;
 ```
 Imagen ejemplo:
+
 ![img_1.png](img/img_1.png)
 
 ## Construir y ejecutar la aplicacion
