@@ -17,7 +17,7 @@ Usuario: root
 Clave: example
 ```
 
-* Ejecute comando de creacion base de datos:
+* Ejecute comando de creacion base de datos en la ventana de 'Comando SQL', tal como se muestra en la imagen a continuacion:
 ```
 CREATE DATABASE store;
 ```
@@ -49,6 +49,22 @@ gradlew.bat clean build
 cd build/libs/
 java -jar prueba-0.0.1-SNAPSHOT.jar
 ```
+
+### Generar reporte de coverura de test
+Para generar el reporte de covertura de test es necesario ejecutar el siguiente comando
+
+* Linux / OSX
+```
+./gradlew build jacocoTestReport
+```
+* Windows
+```
+gradlew.bat build jacocoTestReport
+```
+
+Al finalzar la ejecucion el reporte de covertura queda almacenado en el directorio: ```/build/jacocoHtml/index.html```
+
+![img.png](img.png)
 
 
 ## Probar CRUD de Productos
