@@ -2,11 +2,11 @@ package com.store.prueba.dto;
 
 import java.io.Serializable;
 
-public class ResponseError  implements Serializable {
+public class BodyResponse implements Serializable {
 
     private int code;
     private String message;
-    public ResponseError(int code, String message) {
+    public BodyResponse(int code, String message) {
         this.code = code;
         this.message = message;
     }

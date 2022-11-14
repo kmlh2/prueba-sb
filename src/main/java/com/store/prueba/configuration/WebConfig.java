@@ -2,7 +2,7 @@ package com.store.prueba.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.store.prueba.dto.ResponseError;
+import com.store.prueba.dto.BodyResponse;
 import com.store.prueba.exception.InternalServerException;
 import com.store.prueba.exception.ProductBadRequestException;
 import com.store.prueba.exception.ProductConflictException;
@@ -50,7 +50,7 @@ public class WebConfig {
 
     private byte[] errorToBytes (ServerWebExchange exchange, Throwable ex){
         ObjectMapper objectMapper = new ObjectMapper();
-        ResponseError errorsResponse = new ResponseError(
+        BodyResponse errorsResponse = new BodyResponse(
                 Objects.requireNonNull(exchange.getResponse().getStatusCode()).value(),
                 ex.getMessage()
         );

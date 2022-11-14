@@ -38,12 +38,10 @@ public class ProductController {
     @PutMapping("/update/{sku}")
     private Mono<Product> update(@PathVariable String sku, @RequestBody Product product) {
         return productService.update(sku, product);
-
     }
 
     @DeleteMapping("/delete/{sku}")
     private Mono<Product> delete(@PathVariable String sku) {
         return productService.delete(sku);
-
     }
 }
