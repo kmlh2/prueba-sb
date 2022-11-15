@@ -7,25 +7,39 @@ docker-compose up -d
 
 * El -d, significa __detached__
 
-## Configurar la base de datos
+[//]: # ()
+[//]: # (## Configurar la base de datos)
 
-Si es la primera vez que ejecuta, debe crear la base de datos con los siguientes pasos
+[//]: # ()
+[//]: # (Si es la primera vez que ejecuta, debe crear la base de datos con los siguientes pasos)
 
-* Acceder a url http://localhost:8081/ 
-```
-Usuario: root
-Clave: example
-```
+[//]: # ()
+[//]: # (* Acceder a url http://localhost:8081/ )
 
-* Ejecute comando de creacion base de datos en la ventana de 'Comando SQL', tal como se muestra en la imagen a continuacion:
+[//]: # (```)
 
-Comando:
-```
-CREATE DATABASE store;
-```
-Imagen ejemplo:
+[//]: # (Usuario: root)
 
-![img_1.png](img/img_1.png)
+[//]: # (Clave: example)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (* Ejecute comando de creacion base de datos en la ventana de 'Comando SQL', tal como se muestra en la imagen a continuacion:)
+
+[//]: # ()
+[//]: # (Comando:)
+
+[//]: # (```)
+
+[//]: # (CREATE DATABASE store;)
+
+[//]: # (```)
+
+[//]: # (Imagen ejemplo:)
+
+[//]: # ()
+[//]: # (![img_1.png]&#40;img/img_1.png&#41;)
 
 ## Construir y ejecutar la aplicacion
 
