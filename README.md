@@ -1,4 +1,4 @@
-# Evaluacion Falabella
+# Evaluacion 
 Para correr localmente, se necesita la base de datos. Por lo cual es necesario ejecutar el siguiente comando en la raiz del proyecto
 
 ```
