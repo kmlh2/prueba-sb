@@ -128,3 +128,12 @@ curl --location --request PUT 'http://localhost:8080/products/update/FAL-2345676
 ```
 curl --location --request DELETE 'http://localhost:8080/products/delete/FAL-234567654'
 ```
+
+## Breve explicacion de arquitectura y deciciones tecnicas
+
+Esta aplicacion fue desarrollada en spring boot con spring webflux y jpa.
+Dadas las caracteristicas de que nos proporciona spring boot nos permite configurar y desplegar esta aplicacion en cualquier entorno que tenga de java.
+
+La decicion de usar webfux y no spring mvc, fue principalmente por que webflux gestiona mejor los request asincronos y permite el uso de java reactivo.
+
+Tambien decidi usar jpa para persistir la base de datos, ya que, esta me entrega un facil manejo de las tablas, validaciones de campos y actualizacion del modelo a difencia de JDBC
